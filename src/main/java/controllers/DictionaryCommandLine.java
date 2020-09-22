@@ -17,12 +17,15 @@ public class DictionaryCommandLine extends DictionaryManagement{
     }
     //Hiển thị kết quả: 
     public void showAllWords(){
-        
+        System.out.println("No\t\t\English\t\tVietnamese");
     }
     public void dictionaryAdvanced() throws FileNotFoundException{
         insertFromFile();
         showAllWords();
         dictionaryLookup();
     }
-    
+    public static void main(String[] args) {
+        DictionaryCommandLine main = new DictionaryCommandLine();
+        
+    }
 }

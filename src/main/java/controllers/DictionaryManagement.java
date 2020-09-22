@@ -15,7 +15,7 @@ import models.*;
  * @author DHT
  */
 public class DictionaryManagement extends Dictionary{
-    private String urlData;
+    protected String urlData;
     
     public DictionaryManagement(){
         urlData = "data/dictionaries.txt";
@@ -45,11 +45,6 @@ public class DictionaryManagement extends Dictionary{
     }
     //Tra cứu từ điển 
     public void dictionaryLookup(){
-        
-    }
-    public static void main(String[] args) throws FileNotFoundException {
-        DictionaryManagement a = new DictionaryManagement();
-        a.insertFromFile();
         
     }
 }
