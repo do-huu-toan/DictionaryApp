@@ -30,9 +30,5 @@ public class Word {
     
     public String getWordExplain() {
         return this.word_explain;
-    }
-    public static void main(String[] args) {
-        System.out.println("Hello");
-    }
-    
+    } 
 }
