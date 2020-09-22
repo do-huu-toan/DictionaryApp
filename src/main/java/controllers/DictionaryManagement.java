@@ -4,8 +4,17 @@
  * and open the template in the editor.
  */
 package controllers;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream; //OutputStream File
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import models.*;
@@ -22,12 +31,20 @@ public class DictionaryManagement extends Dictionary{
     }
     //Chức năng nhập liệu:
     public void insertFromCommandline(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Nhập từ tiếng Anh: ");
-        String wordTarget = input.nextLine();
-        System.out.println("Nhập từ tiếng Việt: ");
-        String wordExplain = input.nextLine();
         
+        Scanner input = new Scanner(System.in, "UTF-8");
+        System.out.println("Nhap so tu: ");
+        int n = Integer.parseInt(input.nextLine()); //Chống trôi lệnh
+        
+        for(int i = 0; i < n;i++)
+        {
+            System.out.println("Nhap tu Tieng Anh: ");
+            String wordTarget = input.nextLine();
+            System.out.println("Nhap nghia Tieng Viet: ");
+            String wordExplain = input.nextLine();
+            Word newWord = new Word(wordTarget, wordExplain);
+            listWord.add(newWord);
+        }
     }
     //Chức năng insert dữ liệu từ file dictionaries.txt
     public void insertFromFile() throws FileNotFoundException{ //Exception lỗi mở File
@@ -41,10 +58,33 @@ public class DictionaryManagement extends Dictionary{
                 listWord.add(w);
             }
         }
-        
     }
     //Tra cứu từ điển 
     public void dictionaryLookup(){
-        
+        boolean isFind = false;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhap tu can tra nghia: ");
+        String searchWord = scanner.nextLine();
+        for(Word i : listWord){
+            if(i.getWordTarget().equals(searchWord)){
+                System.out.println(i.getWordExplain());
+                isFind = true;
+                break;
+            }
+        }
+        if(!isFind)System.out.println("Not Found");
+    }
+    public void dictionaryExportToFile() throws FileNotFoundException, UnsupportedEncodingException{
+            //System.out.println(urlData);
+            File f = new File(urlData);
+            PrintWriter doc = new PrintWriter(f);
+            //System.out.println("Start Record");
+            listWord.forEach(i -> {
+             
+            String content = i.getWordTarget() + "=" + i.getWordExplain();
+            System.out.println(content);
+            doc.println(content);
+            });
+            doc.close();
     }
 }

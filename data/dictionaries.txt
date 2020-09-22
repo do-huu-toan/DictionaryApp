@@ -1,1 +1,2 @@
-HelloWord=Xin chào
+Hi=Chào
+Hello=Xin chào
