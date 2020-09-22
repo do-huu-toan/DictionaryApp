@@ -15,10 +15,9 @@ import models.*;
  * @author DHT
  */
 public class DictionaryManagement extends Dictionary{
-    private String urlData;
-    
+    protected String urlData ;
     public DictionaryManagement(){
-        urlData = "data/dictionaries.txt";
+        
     }
     //Chức năng nhập liệu:
     public void insertFromCommandline(){
@@ -39,17 +38,25 @@ public class DictionaryManagement extends Dictionary{
                 String[] content = input.nextLine().split("=");
                 Word w = new Word(content[0], content[1]);
                 listWord.add(w);
+                System.out.println("Done!");
             }
         }
         
     }
     //Tra cứu từ điển 
-    public void dictionaryLookup(){
-        
-    }
-    public static void main(String[] args) throws FileNotFoundException {
-        DictionaryManagement a = new DictionaryManagement();
-        a.insertFromFile();
-        
+    public String dictionaryLookup(){
+        String result = "Not Found";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhap tu muon tra cuu: ");
+        String search = scanner.nextLine();
+        for(Word i:listWord){
+            if(i.getWordTarget().equals(search))
+            {
+                result = i.getWordExplain();
+                break;
+            }
+        }
+        System.out.println(result);
+        return result;
     }
 }

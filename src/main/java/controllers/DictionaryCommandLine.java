@@ -12,17 +12,26 @@ import java.io.FileNotFoundException;
  * @author DHT
  */
 public class DictionaryCommandLine extends DictionaryManagement{
+    public DictionaryCommandLine(){
+        this.urlData = "data/dictionaries.txt";
+    }
     public void dictionaryBasic(){
         insertFromCommandline(); //Nhập dữ liệu
     }
     //Hiển thị kết quả: 
-    public void showAllWords(){
-        
+    public void showAllWords() throws FileNotFoundException{
+        System.out.println("No\t\tEnglish\t\tVietnamese");
+        for(int i = 0;i< listWord.size();i++){
+            System.err.println((i+1)+ "\t\t" + listWord.get(i).getWordTarget() + "\t\t" + listWord.get(i).getWordExplain());
+        }
     }
     public void dictionaryAdvanced() throws FileNotFoundException{
         insertFromFile();
         showAllWords();
         dictionaryLookup();
     }
-    
+    public static void main(String[] args) throws FileNotFoundException {
+        DictionaryCommandLine main = new DictionaryCommandLine();
+        main.dictionaryAdvanced();
+    }
 }
