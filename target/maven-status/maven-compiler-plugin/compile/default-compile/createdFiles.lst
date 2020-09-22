@@ -1,0 +1,4 @@
+controllers\DictionaryCommandLine.class
+models\Dictionary.class
+controllers\DictionaryManagement.class
+models\Word.class

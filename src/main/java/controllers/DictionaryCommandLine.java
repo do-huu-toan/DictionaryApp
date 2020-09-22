@@ -6,6 +6,7 @@
 package controllers;
 
 import java.io.FileNotFoundException;
+import models.Word;
 
 /**
  *
@@ -17,15 +18,18 @@ public class DictionaryCommandLine extends DictionaryManagement{
     }
     //Hiển thị kết quả: 
     public void showAllWords(){
-        System.out.println("No\t\t\English\t\tVietnamese");
+        System.out.println("No\t\tEnglish\t\tVietnamese");
+        for(int i = 0;i < listWord.size();i++){
+            System.out.println(i+1 + "\t\t" + listWord.get(i).getWordTarget() + "\t\t" + listWord.get(i).getWordExplain());
+        }
     }
     public void dictionaryAdvanced() throws FileNotFoundException{
         insertFromFile();
         showAllWords();
         dictionaryLookup();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         DictionaryCommandLine main = new DictionaryCommandLine();
-        
+        main.dictionaryAdvanced();
     }
 }
