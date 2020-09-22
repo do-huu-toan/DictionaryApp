@@ -27,7 +27,7 @@ public class DictionaryManagement extends Dictionary{
     protected String urlData;
     
     public DictionaryManagement(){
-        urlData = "data/dictionaries.txt";
+        urlData = "data/DictEV.dic";
     }
     //Chức năng nhập liệu:
     public void insertFromCommandline(){
@@ -47,18 +47,21 @@ public class DictionaryManagement extends Dictionary{
         }
     }
     //Chức năng insert dữ liệu từ file dictionaries.txt
-    public void insertFromFile() throws FileNotFoundException{ //Exception lỗi mở File
+    public void insertFromFile() throws FileNotFoundException, IOException{ //Exception lỗi mở File
         //Đọc nội dung
-        //System.out.print(urlData);
+        System.out.println(urlData);
         File f = new File(urlData);
-        try (Scanner input = new Scanner(f)) {
-            while(input.hasNextLine()){
-                String[] content = input.nextLine().split("=");
-                Word w = new Word(content[0], content[1]);
-                listWord.add(w);
-            }
-        }
+        Scanner scanner = new Scanner(Paths.get(urlData),"UTF-8");
+        while(scanner.hasNextLine()){
+            System.out.println("Chay vao day");
+            String[] content = scanner.nextLine().split("=");
+            System.out.println("Doc duoc: " + content[0]);
+            Word w = new Word(content[0], content[1]);
+            listWord.add(w);
+                
     }
+}
+    
     //Tra cứu từ điển 
     public void dictionaryLookup(){
         boolean isFind = false;

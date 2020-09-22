@@ -17,4 +17,7 @@ public class Dictionary{
         listWord = new ArrayList<Word>();
         
     }
+    public ArrayList<Word> getListWord(){
+        return this.listWord;
+    }
 }

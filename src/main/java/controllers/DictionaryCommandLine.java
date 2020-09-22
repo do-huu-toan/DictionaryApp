@@ -25,7 +25,7 @@ public class DictionaryCommandLine extends DictionaryManagement{
             System.out.println(i+1 + "\t\t" + listWord.get(i).getWordTarget() + "\t\t" + listWord.get(i).getWordExplain());
         }
     }
-    public void dictionaryAdvanced() throws FileNotFoundException{
+    public void dictionaryAdvanced() throws FileNotFoundException, IOException{
         insertFromFile();
         showAllWords();
         dictionaryLookup();
@@ -46,13 +46,17 @@ public class DictionaryCommandLine extends DictionaryManagement{
             System.out.println("Not Found");
         }
     }
+    /*
     public static void main(String[] args) throws FileNotFoundException, IOException {
         System.out.println("Xin chào");
         DictionaryCommandLine main = new DictionaryCommandLine();
-        main.dictionaryAdvanced();
+        //main.dictionaryAdvanced();
         //main.dictionarySearcher();
-        main.insertFromCommandline();
-        main.dictionaryExportToFile();
+        //main.insertFromCommandline();
+        //main.dictionaryExportToFile();
+        main.insertFromFile();
+        main.showAllWords();
         
     }
+*/
 }

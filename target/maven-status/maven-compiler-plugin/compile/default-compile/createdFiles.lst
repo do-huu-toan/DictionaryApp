@@ -1,5 +1,8 @@
+Views\DictionaryApplication$1.class
+controllers\DictionaryManagement.class
 controllers\DictionaryCommandLine.class
 models\Dictionary.class
-controllers\DictionaryManagement.class
+Views\DictionaryApplication$2.class
 models\Word.class
 controllers\doc.class
+Views\DictionaryApplication.class
