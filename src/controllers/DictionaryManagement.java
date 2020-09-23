@@ -53,9 +53,9 @@ public class DictionaryManagement extends Dictionary{
         File f = new File(urlData);
         Scanner scanner = new Scanner(Paths.get(urlData),"UTF-8");
         while(scanner.hasNextLine()){
-            System.out.println("Chay vao day");
+            //System.out.println("Chay vao day");
             String[] content = scanner.nextLine().split("=");
-            System.out.println("Doc duoc: " + content[0]);
+            //System.out.println("Doc duoc: " + content[0]);
             Word w = new Word(content[0], content[1]);
             listWord.add(w);
                 
@@ -85,7 +85,7 @@ public class DictionaryManagement extends Dictionary{
             listWord.forEach(i -> {
              
             String content = i.getWordTarget() + "=" + i.getWordExplain();
-            System.out.println(content);
+            //System.out.println(content);
             doc.println(content);
             });
             doc.close();

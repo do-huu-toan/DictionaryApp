@@ -7,6 +7,7 @@ package Views;
 import controllers.*;
 import models.*;
 import javax.swing.DefaultListModel;
+import com.sun.speech.freetts.*;
 /**
  *
  * @author DHT
@@ -131,6 +132,12 @@ public class DictionaryApplication extends javax.swing.JFrame {
 
     private void btn_SpeakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SpeakActionPerformed
         // TODO add your handling code here:
+        System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+        Voice voice = VoiceManager.getInstance().getVoice("kevin16");
+        if(voice!=null){
+            voice.allocate();
+            voice.speak(lst_listWord.getSelectedValue());
+        }
         
     }//GEN-LAST:event_btn_SpeakActionPerformed
 
