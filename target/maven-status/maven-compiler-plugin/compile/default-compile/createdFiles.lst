@@ -1,5 +1,6 @@
 Views\DictionaryApplication$1.class
 controllers\DictionaryManagement.class
+Views\DictionaryApplication$3.class
 controllers\DictionaryCommandLine.class
 models\Dictionary.class
 Views\DictionaryApplication$2.class

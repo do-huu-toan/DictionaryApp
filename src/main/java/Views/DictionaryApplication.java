@@ -16,11 +16,12 @@ public class DictionaryApplication extends javax.swing.JFrame {
     /**
      * Creates new form DictionaryApplication
      */
+    DictionaryCommandLine DC = new DictionaryCommandLine();
     public DictionaryApplication() {
         initComponents();
         //Load dữ liệu:
         try {
-            DictionaryCommandLine DC = new DictionaryCommandLine();
+            
             DC.insertFromFile();
             var dataListWord = new DefaultListModel<String>();
             for(Word i : DC.getListWord()){
@@ -47,20 +48,32 @@ public class DictionaryApplication extends javax.swing.JFrame {
         lst_listWord = new javax.swing.JList<>();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        txt_Mean = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txt_Mean = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lst_listWord.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lst_listWord.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        lst_listWord.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lst_listWord.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lst_listWordValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(lst_listWord);
 
         jTextField1.setText("Nhập từ cần tìm kiếm");
 
         jButton1.setText("Tìm kiếm");
+
+        txt_Mean.setEditable(false);
+        txt_Mean.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jScrollPane2.setViewportView(txt_Mean);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,7 +89,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_Mean)))
+                        .addComponent(jScrollPane2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -89,12 +102,19 @@ public class DictionaryApplication extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-                    .addComponent(txt_Mean))
+                    .addComponent(jScrollPane2))
                 .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lst_listWordValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_listWordValueChanged
+        // TODO add your handling code here:
+        String searchWord = lst_listWord.getSelectedValue();
+        String content = DC.dictionaryLookup(searchWord);
+        txt_Mean.setText(content);
+    }//GEN-LAST:event_lst_listWordValueChanged
 
     /**
      * @param args the command line arguments
@@ -135,8 +155,9 @@ public class DictionaryApplication extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JList<String> lst_listWord;
-    private javax.swing.JTextField txt_Mean;
+    private javax.swing.JTextPane txt_Mean;
     // End of variables declaration//GEN-END:variables
 }

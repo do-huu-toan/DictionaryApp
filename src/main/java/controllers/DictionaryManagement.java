@@ -63,19 +63,19 @@ public class DictionaryManagement extends Dictionary{
 }
     
     //Tra cứu từ điển 
-    public void dictionaryLookup(){
-        boolean isFind = false;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhap tu can tra nghia: ");
-        String searchWord = scanner.nextLine();
+    public String dictionaryLookup(String searchWord){
+        String result = "Not Found";
+        //Scanner scanner = new Scanner(System.in);
+        //System.out.println("Nhap tu can tra nghia: ");
+        //String searchWord = scanner.nextLine();
         for(Word i : listWord){
             if(i.getWordTarget().equals(searchWord)){
-                System.out.println(i.getWordExplain());
-                isFind = true;
+                //System.out.println(i.getWordExplain());
+                result = i.getWordExplain();
                 break;
             }
         }
-        if(!isFind)System.out.println("Not Found");
+        return result;
     }
     public void dictionaryExportToFile() throws FileNotFoundException, UnsupportedEncodingException{
             //System.out.println(urlData);

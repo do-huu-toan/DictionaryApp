@@ -28,7 +28,7 @@ public class DictionaryCommandLine extends DictionaryManagement{
     public void dictionaryAdvanced() throws FileNotFoundException, IOException{
         insertFromFile();
         showAllWords();
-        dictionaryLookup();
+        //dictionaryLookup();
     }
     public void dictionarySearcher(){
         boolean isFind = false;
