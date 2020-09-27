@@ -8,6 +8,13 @@ import controllers.*;
 import models.*;
 import javax.swing.DefaultListModel;
 import com.sun.speech.freetts.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author DHT
@@ -45,17 +52,121 @@ public class DictionaryApplication extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rSPanelGradiente1 = new rspanelgradiente.RSPanelGradiente();
+        rSButtonIconI8 = new rojerusan.RSButtonIconI();
+        rSButtonIconI9 = new rojerusan.RSButtonIconI();
+        rSButtonIconI10 = new rojerusan.RSButtonIconI();
+        rSPanelGradiente2 = new rspanelgradiente.RSPanelGradiente();
+        rSPanelImage2 = new rojerusan.RSPanelImage();
+        rSPanelGradiente3 = new rspanelgradiente.RSPanelGradiente();
         jScrollPane1 = new javax.swing.JScrollPane();
         lst_listWord = new javax.swing.JList<>();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btn_searchText = new rojeru_san.RSButton();
+        txt_TextTranslate = new rojeru_san.RSMTextFull();
+        btn_Speaking = new rojerusan.RSButtonIconI();
+        checkbox_useApi = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_Mean = new javax.swing.JTextPane();
-        btn_Speak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        lst_listWord.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rSPanelGradiente1.setBackground(new java.awt.Color(48, 63, 159));
+        rSPanelGradiente1.setColorPrimario(new java.awt.Color(42, 49, 64));
+        rSPanelGradiente1.setColorSecundario(new java.awt.Color(42, 49, 64));
+
+        rSButtonIconI8.setBackground(new java.awt.Color(42, 49, 64));
+        rSButtonIconI8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/baseline_add_white_18dp.png"))); // NOI18N
+        rSButtonIconI8.setColorHover(new java.awt.Color(57, 67, 87));
+        rSButtonIconI8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rSButtonIconI8.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        rSButtonIconI8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonIconI8ActionPerformed(evt);
+            }
+        });
+
+        rSButtonIconI9.setBackground(new java.awt.Color(42, 49, 64));
+        rSButtonIconI9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/baseline_create_white_18dp.png"))); // NOI18N
+        rSButtonIconI9.setColorHover(new java.awt.Color(57, 67, 87));
+        rSButtonIconI9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rSButtonIconI9.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        rSButtonIconI9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonIconI9ActionPerformed(evt);
+            }
+        });
+
+        rSButtonIconI10.setBackground(new java.awt.Color(42, 49, 64));
+        rSButtonIconI10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/baseline_search_white_18dp.png"))); // NOI18N
+        rSButtonIconI10.setColorHover(new java.awt.Color(57, 67, 87));
+        rSButtonIconI10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rSButtonIconI10.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        rSButtonIconI10.setSelected(true);
+        rSButtonIconI10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonIconI10ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout rSPanelGradiente1Layout = new javax.swing.GroupLayout(rSPanelGradiente1);
+        rSPanelGradiente1.setLayout(rSPanelGradiente1Layout);
+        rSPanelGradiente1Layout.setHorizontalGroup(
+            rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(rSButtonIconI9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(rSButtonIconI10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        rSPanelGradiente1Layout.setVerticalGroup(
+            rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rSButtonIconI10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rSButtonIconI9, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(416, Short.MAX_VALUE))
+        );
+
+        rSPanelGradiente2.setColorPrimario(new java.awt.Color(42, 49, 64));
+        rSPanelGradiente2.setColorSecundario(new java.awt.Color(42, 49, 64));
+
+        rSPanelImage2.setImagen(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
+
+        javax.swing.GroupLayout rSPanelImage2Layout = new javax.swing.GroupLayout(rSPanelImage2);
+        rSPanelImage2.setLayout(rSPanelImage2Layout);
+        rSPanelImage2Layout.setHorizontalGroup(
+            rSPanelImage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 76, Short.MAX_VALUE)
+        );
+        rSPanelImage2Layout.setVerticalGroup(
+            rSPanelImage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 66, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout rSPanelGradiente2Layout = new javax.swing.GroupLayout(rSPanelGradiente2);
+        rSPanelGradiente2.setLayout(rSPanelGradiente2Layout);
+        rSPanelGradiente2Layout.setHorizontalGroup(
+            rSPanelGradiente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelGradiente2Layout.createSequentialGroup()
+                .addContainerGap(1107, Short.MAX_VALUE)
+                .addComponent(rSPanelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        rSPanelGradiente2Layout.setVerticalGroup(
+            rSPanelGradiente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rSPanelGradiente2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rSPanelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        rSPanelGradiente3.setColorPrimario(new java.awt.Color(255, 255, 255));
+        rSPanelGradiente3.setColorSecundario(new java.awt.Color(255, 255, 255));
+
+        lst_listWord.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        lst_listWord.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lst_listWord.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -69,59 +180,107 @@ public class DictionaryApplication extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lst_listWord);
 
-        jTextField1.setText("Nhập từ cần tìm kiếm");
-
-        jButton1.setText("Tìm kiếm");
-
-        txt_Mean.setEditable(false);
-        txt_Mean.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jScrollPane2.setViewportView(txt_Mean);
-
-        btn_Speak.setText("Speak");
-        btn_Speak.addActionListener(new java.awt.event.ActionListener() {
+        btn_searchText.setLabel("Tìm kiếm");
+        btn_searchText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SpeakActionPerformed(evt);
+                btn_searchTextActionPerformed(evt);
             }
         });
+
+        txt_TextTranslate.setPlaceholder("Gõ văn bản cần dịch");
+
+        btn_Speaking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/speaking.png"))); // NOI18N
+        btn_Speaking.setText("Phát âm");
+        btn_Speaking.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_Speaking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SpeakingActionPerformed(evt);
+            }
+        });
+
+        checkbox_useApi.setText("Sử dụng API để dịch văn bản?");
+
+        javax.swing.GroupLayout rSPanelGradiente3Layout = new javax.swing.GroupLayout(rSPanelGradiente3);
+        rSPanelGradiente3.setLayout(rSPanelGradiente3Layout);
+        rSPanelGradiente3Layout.setHorizontalGroup(
+            rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
+                        .addComponent(checkbox_useApi, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127)
+                        .addComponent(btn_Speaking, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
+                        .addComponent(txt_TextTranslate, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                        .addGap(14, 14, 14)
+                        .addComponent(btn_searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+        );
+        rSPanelGradiente3Layout.setVerticalGroup(
+            rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_TextTranslate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Speaking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkbox_useApi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11))
+        );
+
+        txt_Mean.setEditable(false);
+        txt_Mean.setBorder(null);
+        txt_Mean.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jScrollPane2.setViewportView(txt_Mean);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(btn_Speak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(rSPanelGradiente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(rSPanelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rSPanelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(rSPanelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_Speak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rSPanelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(rSPanelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rSButtonIconI8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonIconI8ActionPerformed
+
+    private void rSButtonIconI9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonIconI9ActionPerformed
+
+    private void rSButtonIconI10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSButtonIconI10ActionPerformed
 
     private void lst_listWordValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_listWordValueChanged
         // TODO add your handling code here:
@@ -130,7 +289,8 @@ public class DictionaryApplication extends javax.swing.JFrame {
         txt_Mean.setText(content);
     }//GEN-LAST:event_lst_listWordValueChanged
 
-    private void btn_SpeakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SpeakActionPerformed
+    //Bắt sự kiện button đọc từ
+    private void btn_SpeakingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SpeakingActionPerformed
         // TODO add your handling code here:
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         Voice voice = VoiceManager.getInstance().getVoice("kevin16");
@@ -138,9 +298,61 @@ public class DictionaryApplication extends javax.swing.JFrame {
             voice.allocate();
             voice.speak(lst_listWord.getSelectedValue());
         }
-        
-    }//GEN-LAST:event_btn_SpeakActionPerformed
+    }//GEN-LAST:event_btn_SpeakingActionPerformed
+    
+    //Get dữ liệu từ API:
+    
+    private String sendHttpGETRequest(String url_get) throws IOException {
+        URL obj = new URL(url_get);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) obj.openConnection();
+        httpURLConnection.setRequestMethod("GET");
+        httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0");
+        int responseCode = httpURLConnection.getResponseCode();
+        System.out.println("GET Response Code :: " + responseCode);
+        if (responseCode == HttpURLConnection.HTTP_OK) { // success
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
 
+            while ((inputLine = in .readLine()) != null) {
+                response.append(inputLine);
+            } in .close();
+
+            // print result
+            System.out.println(response.toString());
+            return response.toString();
+        } else {
+            System.out.println("GET request not worked");
+            String res = "Not found 404";
+            return res;
+        }
+        
+        
+        /*
+        for (int i = 1; i <= 8; i++) {
+            System.out.println(httpURLConnection.getHeaderFieldKey(i) + " = " + httpURLConnection.getHeaderField(i));
+        }
+        */
+
+    }
+    
+    
+    
+    private void btn_searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchTextActionPerformed
+        // TODO add your handling code here:
+        if(checkbox_useApi.getSelectedObjects() != null){
+            String path = "https://dht-translate-api.herokuapp.com/api/" + txt_TextTranslate.getText().replace(" ", "%20").replace("?", "%3F");
+            
+            try {
+                txt_Mean.setText(sendHttpGETRequest(path));
+            } catch (IOException ex) {
+                txt_Mean.setText("Không kết nối được đến api ! Kiểm tra lại kết nối internet");
+            }
+        }
+            
+    }//GEN-LAST:event_btn_searchTextActionPerformed
+
+        
     /**
      * @param args the command line arguments
      */
@@ -178,12 +390,20 @@ public class DictionaryApplication extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Speak;
-    private javax.swing.JButton jButton1;
+    private rojerusan.RSButtonIconI btn_Speaking;
+    private rojeru_san.RSButton btn_searchText;
+    private javax.swing.JCheckBox checkbox_useApi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JList<String> lst_listWord;
+    private rojerusan.RSButtonIconI rSButtonIconI10;
+    private rojerusan.RSButtonIconI rSButtonIconI8;
+    private rojerusan.RSButtonIconI rSButtonIconI9;
+    private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
+    private rspanelgradiente.RSPanelGradiente rSPanelGradiente2;
+    private rspanelgradiente.RSPanelGradiente rSPanelGradiente3;
+    private rojerusan.RSPanelImage rSPanelImage2;
     private javax.swing.JTextPane txt_Mean;
+    private rojeru_san.RSMTextFull txt_TextTranslate;
     // End of variables declaration//GEN-END:variables
 }
