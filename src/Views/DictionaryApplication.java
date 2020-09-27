@@ -52,6 +52,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rSMTextFullBeanInfo1 = new rojeru_san.RSMTextFullBeanInfo();
         rSPanelGradiente1 = new rspanelgradiente.RSPanelGradiente();
         rSButtonIconI8 = new rojerusan.RSButtonIconI();
         rSButtonIconI9 = new rojerusan.RSButtonIconI();
@@ -65,11 +66,17 @@ public class DictionaryApplication extends javax.swing.JFrame {
         txt_TextTranslate = new rojeru_san.RSMTextFull();
         btn_Speaking = new rojerusan.RSButtonIconI();
         checkbox_useApi = new javax.swing.JCheckBox();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_Mean = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Phần mềm từ điển - Đỗ Hữu Toàn Colab Lê Đình Thiệu");
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(1205, 750));
+        setMinimumSize(new java.awt.Dimension(1205, 750));
+        getContentPane().setLayout(null);
 
         rSPanelGradiente1.setBackground(new java.awt.Color(48, 63, 159));
         rSPanelGradiente1.setColorPrimario(new java.awt.Color(42, 49, 64));
@@ -113,21 +120,24 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSPanelGradiente1.setLayout(rSPanelGradiente1Layout);
         rSPanelGradiente1Layout.setHorizontalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rSButtonIconI9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(rSButtonIconI9, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
             .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(rSButtonIconI10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         rSPanelGradiente1Layout.setVerticalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(rSButtonIconI10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rSButtonIconI9, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addContainerGap(498, Short.MAX_VALUE))
         );
+
+        getContentPane().add(rSPanelGradiente1);
+        rSPanelGradiente1.setBounds(0, 80, 60, 630);
 
         rSPanelGradiente2.setColorPrimario(new java.awt.Color(42, 49, 64));
         rSPanelGradiente2.setColorSecundario(new java.awt.Color(42, 49, 64));
@@ -162,8 +172,13 @@ public class DictionaryApplication extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        getContentPane().add(rSPanelGradiente2);
+        rSPanelGradiente2.setBounds(0, 0, 1193, 86);
+
+        rSPanelGradiente3.setToolTipText("");
         rSPanelGradiente3.setColorPrimario(new java.awt.Color(255, 255, 255));
         rSPanelGradiente3.setColorSecundario(new java.awt.Color(255, 255, 255));
+        rSPanelGradiente3.setLayout(null);
 
         lst_listWord.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         lst_listWord.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -180,14 +195,21 @@ public class DictionaryApplication extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lst_listWord);
 
-        btn_searchText.setLabel("Tìm kiếm");
+        rSPanelGradiente3.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 105, 491, 403);
+
+        btn_searchText.setText("Dịch");
         btn_searchText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchTextActionPerformed(evt);
             }
         });
+        rSPanelGradiente3.add(btn_searchText);
+        btn_searchText.setBounds(377, 11, 136, 29);
 
         txt_TextTranslate.setPlaceholder("Gõ văn bản cần dịch");
+        rSPanelGradiente3.add(txt_TextTranslate);
+        txt_TextTranslate.setBounds(10, 11, 353, 40);
 
         btn_Speaking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/speaking.png"))); // NOI18N
         btn_Speaking.setText("Phát âm");
@@ -197,75 +219,33 @@ public class DictionaryApplication extends javax.swing.JFrame {
                 btn_SpeakingActionPerformed(evt);
             }
         });
+        rSPanelGradiente3.add(btn_Speaking);
+        btn_Speaking.setBounds(324, 519, 177, 40);
 
         checkbox_useApi.setText("Sử dụng API để dịch văn bản?");
+        rSPanelGradiente3.add(checkbox_useApi);
+        checkbox_useApi.setBounds(340, 60, 169, 40);
 
-        javax.swing.GroupLayout rSPanelGradiente3Layout = new javax.swing.GroupLayout(rSPanelGradiente3);
-        rSPanelGradiente3.setLayout(rSPanelGradiente3Layout);
-        rSPanelGradiente3Layout.setHorizontalGroup(
-            rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
-                        .addComponent(checkbox_useApi, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127)
-                        .addComponent(btn_Speaking, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
-                        .addComponent(txt_TextTranslate, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                        .addGap(14, 14, 14)
-                        .addComponent(btn_searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
-        );
-        rSPanelGradiente3Layout.setVerticalGroup(
-            rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rSPanelGradiente3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_TextTranslate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(rSPanelGradiente3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_Speaking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkbox_useApi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11))
-        );
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        rSPanelGradiente3.add(jComboBox1);
+        jComboBox1.setBounds(100, 70, 132, 20);
+
+        jLabel1.setText("Chọn ngôn ngữ: ");
+        rSPanelGradiente3.add(jLabel1);
+        jLabel1.setBounds(20, 70, 81, 20);
+
+        getContentPane().add(rSPanelGradiente3);
+        rSPanelGradiente3.setBounds(70, 110, 530, 570);
 
         txt_Mean.setEditable(false);
         txt_Mean.setBorder(null);
         txt_Mean.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(txt_Mean);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rSPanelGradiente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(rSPanelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rSPanelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(rSPanelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rSPanelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(rSPanelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(620, 110, 550, 570);
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -393,12 +373,15 @@ public class DictionaryApplication extends javax.swing.JFrame {
     private rojerusan.RSButtonIconI btn_Speaking;
     private rojeru_san.RSButton btn_searchText;
     private javax.swing.JCheckBox checkbox_useApi;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> lst_listWord;
     private rojerusan.RSButtonIconI rSButtonIconI10;
     private rojerusan.RSButtonIconI rSButtonIconI8;
     private rojerusan.RSButtonIconI rSButtonIconI9;
+    private rojeru_san.RSMTextFullBeanInfo rSMTextFullBeanInfo1;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente2;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente3;
