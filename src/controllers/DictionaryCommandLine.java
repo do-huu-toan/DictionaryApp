@@ -8,7 +8,7 @@ package controllers;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import models.Word;
+import models.*;
 
 /**
  *
@@ -45,6 +45,16 @@ public class DictionaryCommandLine extends DictionaryManagement{
         if(!isFind){
             System.out.println("Not Found");
         }
+    }
+    
+    public Dictionary dictionaryFilter(String text){
+        Dictionary result = new Dictionary();
+        for(int i = 0;i < listWord.size();i++){
+            if(listWord.get(i).getWordTarget().startsWith(text)){
+                result.add(listWord.get(i));
+            }
+        }
+        return result;
     }
     /*
     public static void main(String[] args) throws FileNotFoundException, IOException {

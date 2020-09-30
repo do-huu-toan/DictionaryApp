@@ -17,7 +17,17 @@ public class Dictionary{
         listWord = new ArrayList<Word>();
         
     }
+    public void setListWord(ArrayList<Word> list){
+        this.listWord = list;
+    }
     public ArrayList<Word> getListWord(){
         return this.listWord;
+    }
+    public void add(Word w){
+        listWord.add(w);
+    }
+
+    public Word size() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

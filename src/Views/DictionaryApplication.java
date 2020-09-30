@@ -11,10 +11,14 @@ import com.sun.speech.freetts.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import java.net.URLEncoder;
+import java.util.ArrayList;
 /**
  *
  * @author DHT
@@ -66,7 +70,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
         txt_TextTranslate = new rojeru_san.RSMTextFull();
         btn_Speaking = new rojerusan.RSButtonIconI();
         checkbox_useApi = new javax.swing.JCheckBox();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cb_Language = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_Mean = new javax.swing.JTextPane();
@@ -208,6 +212,11 @@ public class DictionaryApplication extends javax.swing.JFrame {
         btn_searchText.setBounds(377, 11, 136, 29);
 
         txt_TextTranslate.setPlaceholder("Gõ văn bản cần dịch");
+        txt_TextTranslate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_TextTranslateKeyTyped(evt);
+            }
+        });
         rSPanelGradiente3.add(txt_TextTranslate);
         txt_TextTranslate.setBounds(10, 11, 353, 40);
 
@@ -226,9 +235,10 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSPanelGradiente3.add(checkbox_useApi);
         checkbox_useApi.setBounds(340, 60, 169, 40);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        rSPanelGradiente3.add(jComboBox1);
-        jComboBox1.setBounds(100, 70, 132, 20);
+        cb_Language.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vietnamese - English", "English - Vietnamese" }));
+        cb_Language.setSelectedIndex(1);
+        rSPanelGradiente3.add(cb_Language);
+        cb_Language.setBounds(100, 70, 132, 20);
 
         jLabel1.setText("Chọn ngôn ngữ: ");
         rSPanelGradiente3.add(jLabel1);
@@ -321,16 +331,58 @@ public class DictionaryApplication extends javax.swing.JFrame {
     private void btn_searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchTextActionPerformed
         // TODO add your handling code here:
         if(checkbox_useApi.getSelectedObjects() != null){
-            String path = "https://dht-translate-api.herokuapp.com/api/" + txt_TextTranslate.getText().replace(" ", "%20").replace("?", "%3F");
+            String pathAPI = "https://dht-translate-api.herokuapp.com/api/";
+            
+            if(cb_Language.getSelectedIndex() == 0)
+            {
+                
+                try {
+                    pathAPI = pathAPI + "vi-en/" + URLEncoder.encode(txt_TextTranslate.getText(), "UTF-8").replace("+", "%20");
+                } catch (UnsupportedEncodingException ex) {
+                    txt_Mean.setText("Không thể giải mã văn bản");
+                }
+                
+            }
+            if(cb_Language.getSelectedIndex() == 1)
+            {
+                try {
+                    pathAPI = pathAPI +  "en-vi/" + URLEncoder.encode(txt_TextTranslate.getText(), "UTF-8").replace("+", "%20");
+                } catch (UnsupportedEncodingException ex) {
+                    txt_Mean.setText("Không thể giải mã văn bản");
+                }
+                
+            }
             
             try {
-                txt_Mean.setText(sendHttpGETRequest(path));
+                txt_Mean.setText(sendHttpGETRequest(pathAPI));
             } catch (IOException ex) {
                 txt_Mean.setText("Không kết nối được đến api ! Kiểm tra lại kết nối internet");
             }
         }
             
     }//GEN-LAST:event_btn_searchTextActionPerformed
+
+    private void txt_TextTranslateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TextTranslateKeyTyped
+        // TODO add your handling code here:
+        String searchWord = txt_TextTranslate.getText();
+        searchWord += evt.getKeyChar(); //Nhận hết ký tự cuối cùng
+        searchWord = searchWord.toLowerCase().trim();
+        Dictionary filterList =  new Dictionary();
+        
+        if(searchWord.equals("")) filterList.setListWord(DC.getListWord());
+        else{
+             filterList = DC.dictionaryFilter(searchWord);
+            
+        };
+            var filterWord = new DefaultListModel<String>();
+            for( Word i : filterList.getListWord()){
+                filterWord.addElement(i.getWordTarget());
+            }
+        
+        lst_listWord.setModel(filterWord);
+        if(filterWord.size() > 0)lst_listWord.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_txt_TextTranslateKeyTyped
 
         
     /**
@@ -372,8 +424,8 @@ public class DictionaryApplication extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSButtonIconI btn_Speaking;
     private rojeru_san.RSButton btn_searchText;
+    private javax.swing.JComboBox<String> cb_Language;
     private javax.swing.JCheckBox checkbox_useApi;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
