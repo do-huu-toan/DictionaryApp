@@ -29,21 +29,24 @@ public class DictionaryApplication extends javax.swing.JFrame {
      * Creates new form DictionaryApplication
      */
     DictionaryCommandLine DC = new DictionaryCommandLine();
+    searchPanel formSearch;
     public DictionaryApplication() {
         initComponents();
+        
         //Load dữ liệu:
+        
         try {
             
             DC.insertFromFile();
-            var dataListWord = new DefaultListModel<String>();
-            for(Word i : DC.getListWord()){
-                dataListWord.addElement(i.getWordTarget());
-            }
-            lst_listWord.setModel(dataListWord);
-            
-        } catch (Exception e) {
+         
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        
+        formSearch = new searchPanel(DC);
+        panelShow.add(formSearch);
+        formSearch.setVisible(true);
+        
         
     }
 
@@ -63,17 +66,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSButtonIconI10 = new rojerusan.RSButtonIconI();
         rSPanelGradiente2 = new rspanelgradiente.RSPanelGradiente();
         rSPanelImage2 = new rojerusan.RSPanelImage();
-        rSPanelGradiente3 = new rspanelgradiente.RSPanelGradiente();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lst_listWord = new javax.swing.JList<>();
-        btn_searchText = new rojeru_san.RSButton();
-        txt_TextTranslate = new rojeru_san.RSMTextFull();
-        btn_Speaking = new rojerusan.RSButtonIconI();
-        checkbox_useApi = new javax.swing.JCheckBox();
-        cb_Language = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txt_Mean = new javax.swing.JTextPane();
+        panelShow = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phần mềm từ điển - Đỗ Hữu Toàn Colab Lê Đình Thiệu");
@@ -164,9 +157,9 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSPanelGradiente2Layout.setHorizontalGroup(
             rSPanelGradiente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelGradiente2Layout.createSequentialGroup()
-                .addContainerGap(1107, Short.MAX_VALUE)
+                .addContainerGap(1087, Short.MAX_VALUE)
                 .addComponent(rSPanelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(57, 57, 57))
         );
         rSPanelGradiente2Layout.setVerticalGroup(
             rSPanelGradiente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,83 +170,24 @@ public class DictionaryApplication extends javax.swing.JFrame {
         );
 
         getContentPane().add(rSPanelGradiente2);
-        rSPanelGradiente2.setBounds(0, 0, 1193, 86);
+        rSPanelGradiente2.setBounds(0, 0, 1220, 86);
 
-        rSPanelGradiente3.setToolTipText("");
-        rSPanelGradiente3.setColorPrimario(new java.awt.Color(255, 255, 255));
-        rSPanelGradiente3.setColorSecundario(new java.awt.Color(255, 255, 255));
-        rSPanelGradiente3.setLayout(null);
+        panelShow.setMinimumSize(new java.awt.Dimension(1146, 610));
+        panelShow.setPreferredSize(new java.awt.Dimension(1108, 592));
 
-        lst_listWord.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        lst_listWord.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lst_listWord.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        lst_listWord.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lst_listWord.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lst_listWordValueChanged(evt);
-            }
-        });
-        jScrollPane1.setViewportView(lst_listWord);
+        javax.swing.GroupLayout panelShowLayout = new javax.swing.GroupLayout(panelShow);
+        panelShow.setLayout(panelShowLayout);
+        panelShowLayout.setHorizontalGroup(
+            panelShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1146, Short.MAX_VALUE)
+        );
+        panelShowLayout.setVerticalGroup(
+            panelShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 610, Short.MAX_VALUE)
+        );
 
-        rSPanelGradiente3.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 105, 491, 403);
-
-        btn_searchText.setText("Dịch");
-        btn_searchText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchTextActionPerformed(evt);
-            }
-        });
-        rSPanelGradiente3.add(btn_searchText);
-        btn_searchText.setBounds(377, 11, 136, 29);
-
-        txt_TextTranslate.setPlaceholder("Gõ văn bản cần dịch");
-        txt_TextTranslate.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_TextTranslateKeyTyped(evt);
-            }
-        });
-        rSPanelGradiente3.add(txt_TextTranslate);
-        txt_TextTranslate.setBounds(10, 11, 353, 40);
-
-        btn_Speaking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/speaking.png"))); // NOI18N
-        btn_Speaking.setText("Phát âm");
-        btn_Speaking.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btn_Speaking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SpeakingActionPerformed(evt);
-            }
-        });
-        rSPanelGradiente3.add(btn_Speaking);
-        btn_Speaking.setBounds(324, 519, 177, 40);
-
-        checkbox_useApi.setText("Sử dụng API để dịch văn bản?");
-        rSPanelGradiente3.add(checkbox_useApi);
-        checkbox_useApi.setBounds(340, 60, 169, 40);
-
-        cb_Language.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vietnamese - English", "English - Vietnamese" }));
-        cb_Language.setSelectedIndex(1);
-        rSPanelGradiente3.add(cb_Language);
-        cb_Language.setBounds(100, 70, 132, 20);
-
-        jLabel1.setText("Chọn ngôn ngữ: ");
-        rSPanelGradiente3.add(jLabel1);
-        jLabel1.setBounds(20, 70, 81, 20);
-
-        getContentPane().add(rSPanelGradiente3);
-        rSPanelGradiente3.setBounds(70, 110, 530, 570);
-
-        txt_Mean.setEditable(false);
-        txt_Mean.setBorder(null);
-        txt_Mean.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jScrollPane2.setViewportView(txt_Mean);
-
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(620, 110, 550, 570);
+        getContentPane().add(panelShow);
+        panelShow.setBounds(80, 100, 1098, 570);
 
         getAccessibleContext().setAccessibleDescription("");
 
@@ -262,6 +196,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
 
     private void rSButtonIconI8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI8ActionPerformed
         // TODO add your handling code here:
+        formSearch.setVisible(false);
     }//GEN-LAST:event_rSButtonIconI8ActionPerformed
 
     private void rSButtonIconI9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI9ActionPerformed
@@ -270,26 +205,10 @@ public class DictionaryApplication extends javax.swing.JFrame {
 
     private void rSButtonIconI10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI10ActionPerformed
         // TODO add your handling code here:
+        formSearch.setVisible(true);
     }//GEN-LAST:event_rSButtonIconI10ActionPerformed
 
-    private void lst_listWordValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_listWordValueChanged
-        // TODO add your handling code here:
-        String searchWord = lst_listWord.getSelectedValue();
-        String content = DC.dictionaryLookup(searchWord);
-        txt_Mean.setText(content);
-    }//GEN-LAST:event_lst_listWordValueChanged
-
-    //Bắt sự kiện button đọc từ
-    private void btn_SpeakingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SpeakingActionPerformed
-        // TODO add your handling code here:
-        System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-        Voice voice = VoiceManager.getInstance().getVoice("kevin16");
-        if(voice!=null){
-            voice.allocate();
-            voice.speak(lst_listWord.getSelectedValue());
-        }
-    }//GEN-LAST:event_btn_SpeakingActionPerformed
-    
+   
     //Get dữ liệu từ API:
     
     private String sendHttpGETRequest(String url_get) throws IOException {
@@ -328,62 +247,6 @@ public class DictionaryApplication extends javax.swing.JFrame {
     
     
     
-    private void btn_searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchTextActionPerformed
-        // TODO add your handling code here:
-        if(checkbox_useApi.getSelectedObjects() != null){
-            String pathAPI = "https://dht-translate-api.herokuapp.com/api/";
-            
-            if(cb_Language.getSelectedIndex() == 0)
-            {
-                
-                try {
-                    pathAPI = pathAPI + "vi-en/" + URLEncoder.encode(txt_TextTranslate.getText(), "UTF-8").replace("+", "%20");
-                } catch (UnsupportedEncodingException ex) {
-                    txt_Mean.setText("Không thể giải mã văn bản");
-                }
-                
-            }
-            if(cb_Language.getSelectedIndex() == 1)
-            {
-                try {
-                    pathAPI = pathAPI +  "en-vi/" + URLEncoder.encode(txt_TextTranslate.getText(), "UTF-8").replace("+", "%20");
-                } catch (UnsupportedEncodingException ex) {
-                    txt_Mean.setText("Không thể giải mã văn bản");
-                }
-                
-            }
-            
-            try {
-                txt_Mean.setText(sendHttpGETRequest(pathAPI));
-            } catch (IOException ex) {
-                txt_Mean.setText("Không kết nối được đến api ! Kiểm tra lại kết nối internet");
-            }
-        }
-            
-    }//GEN-LAST:event_btn_searchTextActionPerformed
-
-    private void txt_TextTranslateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TextTranslateKeyTyped
-        // TODO add your handling code here:
-        String searchWord = txt_TextTranslate.getText();
-        searchWord += evt.getKeyChar(); //Nhận hết ký tự cuối cùng
-        searchWord = searchWord.toLowerCase().trim();
-        Dictionary filterList =  new Dictionary();
-        
-        if(searchWord.equals("")) filterList.setListWord(DC.getListWord());
-        else{
-             filterList = DC.dictionaryFilter(searchWord);
-            
-        };
-            var filterWord = new DefaultListModel<String>();
-            for( Word i : filterList.getListWord()){
-                filterWord.addElement(i.getWordTarget());
-            }
-        
-        lst_listWord.setModel(filterWord);
-        if(filterWord.size() > 0)lst_listWord.setSelectedIndex(0);
-        
-    }//GEN-LAST:event_txt_TextTranslateKeyTyped
-
         
     /**
      * @param args the command line arguments
@@ -422,23 +285,13 @@ public class DictionaryApplication extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private rojerusan.RSButtonIconI btn_Speaking;
-    private rojeru_san.RSButton btn_searchText;
-    private javax.swing.JComboBox<String> cb_Language;
-    private javax.swing.JCheckBox checkbox_useApi;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> lst_listWord;
+    private javax.swing.JPanel panelShow;
     private rojerusan.RSButtonIconI rSButtonIconI10;
     private rojerusan.RSButtonIconI rSButtonIconI8;
     private rojerusan.RSButtonIconI rSButtonIconI9;
     private rojeru_san.RSMTextFullBeanInfo rSMTextFullBeanInfo1;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente2;
-    private rspanelgradiente.RSPanelGradiente rSPanelGradiente3;
     private rojerusan.RSPanelImage rSPanelImage2;
-    private javax.swing.JTextPane txt_Mean;
-    private rojeru_san.RSMTextFull txt_TextTranslate;
     // End of variables declaration//GEN-END:variables
 }
