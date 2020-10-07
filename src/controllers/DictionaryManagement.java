@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package controllers;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream; //OutputStream File
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -50,7 +52,7 @@ public class DictionaryManagement extends Dictionary{
     public void insertFromFile() throws FileNotFoundException, IOException{ //Exception lỗi mở File
         //Đọc nội dung
         System.out.println(urlData);
-        File f = new File(urlData);
+        //File f = new File(urlData);
         Scanner scanner = new Scanner(Paths.get(urlData),"UTF-8");
         while(scanner.hasNextLine()){
             //System.out.println("Chay vao day");
@@ -58,8 +60,8 @@ public class DictionaryManagement extends Dictionary{
             //System.out.println("Doc duoc: " + content[0]);
             Word w = new Word(content[0], content[1]);
             listWord.add(w);
-                
     }
+        scanner.close();
 }
     
     //Tra cứu từ điển 
@@ -79,15 +81,34 @@ public class DictionaryManagement extends Dictionary{
     }
     public void dictionaryExportToFile() throws FileNotFoundException, UnsupportedEncodingException{
             //System.out.println(urlData);
-            File f = new File(urlData);
-            PrintWriter doc = new PrintWriter(f);
-            //System.out.println("Start Record");
-            listWord.forEach(i -> {
-             
-            String content = i.getWordTarget() + "=" + i.getWordExplain();
-            //System.out.println(content);
-            doc.println(content);
-            });
-            doc.close();
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+ 
+        try {
+            File file = new File(urlData);
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            // true = append file
+            fw = new FileWriter(file.getAbsoluteFile(), false);
+            bw = new BufferedWriter(fw);
+            for(Word i : listWord){
+                bw.write(i.getWordTarget() + "=" + i.getWordExplain() + "\n");
+            }
+            
+            System.out.println("Success...");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+                if (fw != null)
+                    fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

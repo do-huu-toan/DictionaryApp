@@ -4,19 +4,50 @@
  * and open the template in the editor.
  */
 package Views;
-
+import controllers.DictionaryCommandLine;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import models.Word;
 /**
  *
  * @author DHT
  */
-public class EditPanel extends javax.swing.JPanel {
+public class editPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form EditPanel
+     * Creates new form editPanel
+     * @param DC
      */
-    public EditPanel() {
-        setSize(1100,570);
+    
+    DictionaryCommandLine DC;
+    DefaultTableModel table = new DefaultTableModel();
+    DefaultListModel dataListWord = new DefaultListModel<String>();
+    DictionaryApplication parent;
+    public editPanel(DictionaryCommandLine DC, DefaultListModel dataListWord, DictionaryApplication parent,  DefaultTableModel table) {
         initComponents();
+        this.parent = parent;
+        this.DC = DC;
+        this.dataListWord = dataListWord;
+        this.table = table;
+        setSize(1100,570);
+        refreshDataToTable();
+    }
+
+    editPanel() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void refreshDataToTable(){
+        table.setRowCount(0);
+        for(Word i : DC.getListWord()){
+            table.addRow(new Object[]{i.getWordTarget(),i.getWordExplain()});
+        }
+        table_edit.setModel(table);
     }
 
     /**
@@ -28,19 +59,153 @@ public class EditPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 370, Short.MAX_VALUE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
+        btn_save = new rojeru_san.RSButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table_edit = new javax.swing.JTable();
+        rSButton1 = new rojeru_san.RSButton();
+        btn_delete = new rojeru_san.RSButton();
+        btn_replace = new rojeru_san.RSButton();
 
+        setPreferredSize(new java.awt.Dimension(1100, 570));
+        setLayout(null);
+
+        btn_save.setText("Save");
+        btn_save.setMaximumSize(new java.awt.Dimension(57, 25));
+        btn_save.setMinimumSize(new java.awt.Dimension(57, 25));
+        btn_save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_saveActionPerformed(evt);
+            }
+        });
+        add(btn_save);
+        btn_save.setBounds(730, 510, 100, 40);
+
+        table_edit.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Từ tiếng Anh", "Nghĩa Tiếng Việt"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        table_edit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                table_editKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(table_edit);
+        if (table_edit.getColumnModel().getColumnCount() > 0) {
+            table_edit.getColumnModel().getColumn(0).setMinWidth(100);
+            table_edit.getColumnModel().getColumn(0).setPreferredWidth(100);
+            table_edit.getColumnModel().getColumn(0).setMaxWidth(100);
+        }
+
+        add(jScrollPane2);
+        jScrollPane2.setBounds(50, 30, 1010, 440);
+
+        rSButton1.setText("Add");
+        rSButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButton1ActionPerformed(evt);
+            }
+        });
+        add(rSButton1);
+        rSButton1.setBounds(260, 510, 100, 40);
+
+        btn_delete.setText("Delete");
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
+        add(btn_delete);
+        btn_delete.setBounds(580, 510, 100, 40);
+
+        btn_replace.setText("Replace");
+        btn_replace.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_replaceActionPerformed(evt);
+            }
+        });
+        add(btn_replace);
+        btn_replace.setBounds(420, 510, 100, 40);
+    }// </editor-fold>//GEN-END:initComponents
+    private void Delete()
+    {
+            int removeIndex = -1;
+            removeIndex = table_edit.getSelectedRow();
+            if(removeIndex == -1)
+            {
+                JOptionPane.showMessageDialog(this, "Bạn phải chọn từ cần xóa");
+            }
+            else
+            {
+                table.removeRow(removeIndex);
+                DC.remove(removeIndex);
+                dataListWord.remove(removeIndex);
+                //DC.save();
+            }
+            
+    }
+    private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
+        // TODO add your handling code here:
+        DC.save();
+        JOptionPane.showMessageDialog(this, "Đã lưu thành công");
+    }//GEN-LAST:event_btn_saveActionPerformed
+    public void addNew(Word newWord){
+        DC.add(newWord);
+        table.addRow(new Object[]{newWord.getWordTarget(),newWord.getWordExplain()});
+        refreshDataToTable();
+        dataListWord.addElement(newWord.getWordTarget());
+        DC.save();
+        System.out.println("Đã add");
+    }
+    private void rSButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButton1ActionPerformed
+        // TODO add your handling code here:
+        inputWord input = new inputWord(parent);
+        input.setVisible(true);
+    }//GEN-LAST:event_rSButton1ActionPerformed
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        // TODO add your handling code here:
+        Delete();
+    }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void table_editKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_table_editKeyReleased
+        // TODO add your handling code here:
+        System.out.println(evt.getKeyCode());
+    }//GEN-LAST:event_table_editKeyReleased
+
+    private void btn_replaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_replaceActionPerformed
+        // TODO add your handling code here:
+        
+        int replaceIndex = -1;
+        replaceIndex = table_edit.getSelectedRow();
+        if(replaceIndex != -1){
+            replaceForm replace = new replaceForm(parent, replaceIndex);
+            replace.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(parent, "Bạn phải chọn từ cần replace");
+       
+    }//GEN-LAST:event_btn_replaceActionPerformed
+        //Tạo 1 timer làm tươi liên tục
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojeru_san.RSButton btn_delete;
+    private rojeru_san.RSButton btn_replace;
+    private rojeru_san.RSButton btn_save;
+    private javax.swing.JScrollPane jScrollPane2;
+    private rojeru_san.RSButton rSButton1;
+    private javax.swing.JTable table_edit;
     // End of variables declaration//GEN-END:variables
 }

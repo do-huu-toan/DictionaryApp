@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
+import javax.swing.table.DefaultTableModel;
+import models.Word;
 
 /**
  *
@@ -22,22 +27,39 @@ public class DictionaryApplication extends javax.swing.JFrame {
      */
     DictionaryCommandLine DC = new DictionaryCommandLine();
     searchPanel formSearch;
+    editPanel formEdit;
+    DefaultListModel dataListWord = new DefaultListModel<String>();
+    DefaultTableModel table = new DefaultTableModel();
+    
     public DictionaryApplication() {
+        
         initComponents();
         
         //Load dữ liệu:
         
         try {
-            
             DC.insertFromFile();
-         
         } catch (IOException e) {
-            System.err.println(e.getMessage());
         }
-        
-        formSearch = new searchPanel(DC);
+        //DataListWord:
+        DC.getListWord().forEach(i -> {
+            dataListWord.addElement(i.getWordTarget());
+        });
+        //---------------
+        table.addColumn("English");
+        table.addColumn("Vietnamese");
+        for(Word i : DC.getListWord()){
+            table.addRow(new Object[]{i.getWordTarget(),i.getWordExplain()});
+        }
+        //----------------
+        formSearch = new searchPanel(DC, dataListWord);  
         panelShow.add(formSearch);
         formSearch.setVisible(true);
+        
+        
+        formEdit = new editPanel(DC, dataListWord, this, table);
+        panelShow.add(formEdit);
+        formEdit.setVisible(false);
         
         
     }
@@ -54,14 +76,14 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSMTextFullBeanInfo1 = new rojeru_san.RSMTextFullBeanInfo();
         rSPanelGradiente1 = new rspanelgradiente.RSPanelGradiente();
         rSButtonIconI8 = new rojerusan.RSButtonIconI();
-        rSButtonIconI9 = new rojerusan.RSButtonIconI();
-        rSButtonIconI10 = new rojerusan.RSButtonIconI();
+        btn_edit = new rojerusan.RSButtonIconI();
+        btn_search = new rojerusan.RSButtonIconI();
         rSPanelGradiente2 = new rspanelgradiente.RSPanelGradiente();
         rSPanelImage2 = new rojerusan.RSPanelImage();
         panelShow = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Phần mềm từ điển - Đỗ Hữu Toàn Colab Lê Đình Thiệu");
+        setTitle("Phần mềm từ điển - Đỗ Hữu Toàn Collab Lê Đình Thiệu");
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1205, 750));
         setMinimumSize(new java.awt.Dimension(1205, 750));
@@ -82,26 +104,26 @@ public class DictionaryApplication extends javax.swing.JFrame {
             }
         });
 
-        rSButtonIconI9.setBackground(new java.awt.Color(42, 49, 64));
-        rSButtonIconI9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/baseline_create_white_18dp.png"))); // NOI18N
-        rSButtonIconI9.setColorHover(new java.awt.Color(57, 67, 87));
-        rSButtonIconI9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rSButtonIconI9.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        rSButtonIconI9.addActionListener(new java.awt.event.ActionListener() {
+        btn_edit.setBackground(new java.awt.Color(42, 49, 64));
+        btn_edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/baseline_create_white_18dp.png"))); // NOI18N
+        btn_edit.setColorHover(new java.awt.Color(80, 90, 110));
+        btn_edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_edit.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonIconI9ActionPerformed(evt);
+                btn_editActionPerformed(evt);
             }
         });
 
-        rSButtonIconI10.setBackground(new java.awt.Color(42, 49, 64));
-        rSButtonIconI10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/baseline_search_white_18dp.png"))); // NOI18N
-        rSButtonIconI10.setColorHover(new java.awt.Color(57, 67, 87));
-        rSButtonIconI10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rSButtonIconI10.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        rSButtonIconI10.setSelected(true);
-        rSButtonIconI10.addActionListener(new java.awt.event.ActionListener() {
+        btn_search.setBackground(new java.awt.Color(42, 49, 64));
+        btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/baseline_search_white_18dp.png"))); // NOI18N
+        btn_search.setColorHover(new java.awt.Color(80, 90, 110));
+        btn_search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_search.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btn_search.setSelected(true);
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonIconI10ActionPerformed(evt);
+                btn_searchActionPerformed(evt);
             }
         });
 
@@ -109,20 +131,20 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSPanelGradiente1.setLayout(rSPanelGradiente1Layout);
         rSPanelGradiente1Layout.setHorizontalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rSButtonIconI9, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(rSButtonIconI10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
         rSPanelGradiente1Layout.setVerticalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(rSButtonIconI10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rSButtonIconI9, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(498, Short.MAX_VALUE))
+                .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(rSButtonIconI8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(512, Short.MAX_VALUE))
         );
 
         getContentPane().add(rSPanelGradiente1);
@@ -137,11 +159,11 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSPanelImage2.setLayout(rSPanelImage2Layout);
         rSPanelImage2Layout.setHorizontalGroup(
             rSPanelImage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
         rSPanelImage2Layout.setVerticalGroup(
             rSPanelImage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addGap(0, 64, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout rSPanelGradiente2Layout = new javax.swing.GroupLayout(rSPanelGradiente2);
@@ -149,7 +171,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
         rSPanelGradiente2Layout.setHorizontalGroup(
             rSPanelGradiente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelGradiente2Layout.createSequentialGroup()
-                .addContainerGap(1087, Short.MAX_VALUE)
+                .addContainerGap(1088, Short.MAX_VALUE)
                 .addComponent(rSPanelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
         );
@@ -157,7 +179,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
             rSPanelGradiente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rSPanelGradiente2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rSPanelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rSPanelImage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -185,20 +207,41 @@ public class DictionaryApplication extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void addNew(Word newWord){
+        DC.add(newWord);
+        table.addRow(new Object[]{newWord.getWordTarget(),newWord.getWordExplain()});
+        dataListWord.addElement(newWord.getWordTarget());
+        System.out.println("Đã add");
+    }
+    public void replace(Word replace, int index){
+        DC.repalace(index, replace);
+        table.setValueAt(replace.getWordTarget(), index,0);
+        table.setValueAt(replace.getWordExplain(), index,1);
+        dataListWord.set(index, replace.getWordTarget());
+        System.out.println("Đã replace");
+    }
     private void rSButtonIconI8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI8ActionPerformed
         // TODO add your handling code here:
-        formSearch.setVisible(false);
+        JOptionPane.showMessageDialog(rootPane, "Bài tập lớn Dictionary !\nThành viên:\nĐỗ Hữu Toàn\nLê Đình Thiệu", "Thông tin", HEIGHT);
+        //formSearch.setVisible(false);
     }//GEN-LAST:event_rSButtonIconI8ActionPerformed
 
-    private void rSButtonIconI9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI9ActionPerformed
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rSButtonIconI9ActionPerformed
+        btn_search.setSelected(false);
+        btn_edit.setSelected(true);
+        formSearch.setVisible(false);
+        formEdit.setVisible(true);
+        
+    }//GEN-LAST:event_btn_editActionPerformed
 
-    private void rSButtonIconI10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonIconI10ActionPerformed
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
         // TODO add your handling code here:
+        btn_search.setSelected(true);
+        btn_edit.setSelected(false);
         formSearch.setVisible(true);
-    }//GEN-LAST:event_rSButtonIconI10ActionPerformed
+        formEdit.setVisible(false);
+    }//GEN-LAST:event_btn_searchActionPerformed
 
    
     //Get dữ liệu từ API:
@@ -243,7 +286,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InterruptedException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -274,13 +317,15 @@ public class DictionaryApplication extends javax.swing.JFrame {
                 new DictionaryApplication().setVisible(true);
             }
         });
+        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojerusan.RSButtonIconI btn_edit;
+    private rojerusan.RSButtonIconI btn_search;
     private javax.swing.JPanel panelShow;
-    private rojerusan.RSButtonIconI rSButtonIconI10;
     private rojerusan.RSButtonIconI rSButtonIconI8;
-    private rojerusan.RSButtonIconI rSButtonIconI9;
     private rojeru_san.RSMTextFullBeanInfo rSMTextFullBeanInfo1;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente2;

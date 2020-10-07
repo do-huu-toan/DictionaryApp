@@ -56,6 +56,23 @@ public class DictionaryCommandLine extends DictionaryManagement{
         }
         return result;
     }
+    
+    public void remove(int index)
+    {
+        listWord.remove(index);
+    }
+    public void repalace(int index, Word w){
+        listWord.set(index, w);
+    }
+    public void save(){
+        try {
+            dictionaryExportToFile();
+            System.out.println("Đã lưu file");
+        } catch (Exception e) {
+            System.out.println("Lỗi ghi file");
+        }
+        
+    }
     /*
     public static void main(String[] args) throws FileNotFoundException, IOException {
         System.out.println("Xin chào");

@@ -7,6 +7,7 @@ package Views;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import controllers.DictionaryCommandLine;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import models.Dictionary;
 import models.Word;
@@ -27,16 +30,18 @@ public class searchPanel extends javax.swing.JPanel{
      * Creates new form searchPanel
      */
     DictionaryCommandLine DC;
-    public searchPanel(DictionaryCommandLine DC) {
-        initComponents();
-        setSize(1100,570);
-        this.DC = DC;
-        var dataListWord = new DefaultListModel<String>();
-        DC.getListWord().forEach(i -> {
-            dataListWord.addElement(i.getWordTarget());
-        });
-        
+    
+    public void loadDataToList(DefaultListModel dataListWord){
+        //this.DC = DC;
         lst_listWord.setModel(dataListWord);
+    }
+    public searchPanel(DictionaryCommandLine DC, DefaultListModel dataListWord) {
+        System.out.println("Khoi tao searchPanel");
+        initComponents();
+        this.DC = DC;
+        loadDataToList(dataListWord);
+        setSize(1100,570);
+        
     }
 
     searchPanel() {
@@ -159,18 +164,21 @@ public class searchPanel extends javax.swing.JPanel{
         String content = DC.dictionaryLookup(searchWord);
         txt_Mean.setText(content);
     }//GEN-LAST:event_lst_listWordValueChanged
-
+    
+    
+    
     private void btn_searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchTextActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
         if(checkbox_useApi.getSelectedObjects() != null){
+            
             String pathAPI = "https://dht-translate-api.herokuapp.com/api/";
-
+            
             if(cb_Language.getSelectedIndex() == 0)
             {
 
                 try {
                     pathAPI = pathAPI + "vi-en/" + URLEncoder.encode(txt_TextTranslate.getText(), "UTF-8").replace("+", "%20");
-                } catch (UnsupportedEncodingException ex) {
+                } catch (Exception ex) {
                     txt_Mean.setText("Không thể giải mã văn bản");
                 }
 
@@ -179,15 +187,16 @@ public class searchPanel extends javax.swing.JPanel{
             {
                 try {
                     pathAPI = pathAPI +  "en-vi/" + URLEncoder.encode(txt_TextTranslate.getText(), "UTF-8").replace("+", "%20");
-                } catch (UnsupportedEncodingException ex) {
+                } catch (Exception ex) {
                     txt_Mean.setText("Không thể giải mã văn bản");
                 }
 
             }
 
             try {
+               
                 txt_Mean.setText(sendHttpGETRequest(pathAPI));
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 txt_Mean.setText("Không kết nối được đến api ! Kiểm tra lại kết nối internet");
             }
         }
@@ -255,7 +264,8 @@ public class searchPanel extends javax.swing.JPanel{
         Voice voice = VoiceManager.getInstance().getVoice("kevin16");
         if(voice!=null){
             voice.allocate();
-            voice.speak(lst_listWord.getSelectedValue());
+            if(lst_listWord.getSelectedIndex() != -1)voice.speak(lst_listWord.getSelectedValue());
+            else voice.speak(txt_TextTranslate.getText());
         }
     }//GEN-LAST:event_btn_SpeakingActionPerformed
 
