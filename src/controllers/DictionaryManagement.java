@@ -85,7 +85,7 @@ public class DictionaryManagement extends Dictionary{
         FileWriter fw = null;
  
         try {
-            File file = new File(urlData);
+            File file = new File(urlData,"UTF-8");
             // if file doesnt exists, then create it
             if (!file.exists()) {
                 file.createNewFile();

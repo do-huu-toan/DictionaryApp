@@ -3,20 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Views;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import controllers.DictionaryCommandLine;
-import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.nio.charset.StandardCharsets;
 import javax.swing.DefaultListModel;
 import models.Dictionary;
 import models.Word;
@@ -194,7 +192,7 @@ public class searchPanel extends javax.swing.JPanel{
             }
 
             try {
-               
+                
                 txt_Mean.setText(sendHttpGETRequest(pathAPI));
             } catch (Exception ex) {
                 txt_Mean.setText("Không kết nối được đến api ! Kiểm tra lại kết nối internet");
@@ -243,7 +241,8 @@ public class searchPanel extends javax.swing.JPanel{
 
             // print result
             System.out.println(response.toString());
-            return response.toString();
+            byte[] bytes = response.toString().getBytes();
+            return new String(bytes,StandardCharsets.UTF_8); //Chuyển Raw String - UTF8 để khi build app không lỗi font
         } else {
             System.out.println("GET request not worked");
             String res = "Not found 404";

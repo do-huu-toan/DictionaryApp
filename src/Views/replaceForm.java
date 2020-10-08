@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Views;
-
 import javax.swing.JOptionPane;
 import models.Word;
 
