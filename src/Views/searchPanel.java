@@ -22,7 +22,7 @@ import models.Word;
  *
  * @author DHT
  */
-public class searchPanel extends javax.swing.JPanel{
+public class SearchPanel extends javax.swing.JPanel{
 
     /**
      * Creates new form searchPanel
@@ -33,7 +33,7 @@ public class searchPanel extends javax.swing.JPanel{
         //this.DC = DC;
         lst_listWord.setModel(dataListWord);
     }
-    public searchPanel(DictionaryCommandLine DC, DefaultListModel dataListWord) {
+    public SearchPanel(DictionaryCommandLine DC, DefaultListModel dataListWord) {
         System.out.println("Khoi tao searchPanel");
         initComponents();
         this.DC = DC;
@@ -42,7 +42,7 @@ public class searchPanel extends javax.swing.JPanel{
         
     }
 
-    searchPanel() {
+    SearchPanel() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
