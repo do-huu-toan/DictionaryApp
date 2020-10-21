@@ -83,15 +83,30 @@ public class DictionaryManagement extends Dictionary{
             //System.out.println(urlData);
         BufferedWriter bw = null;
         FileWriter fw = null;
- 
+        
+        
         try {
+<<<<<<< HEAD
             File file = new File(urlData);
+=======
+            
+            File file = new File(urlData);
+            
+>>>>>>> origin
             // if file doesnt exists, then create it
+            
             if (!file.exists()) {
                 file.createNewFile();
             }
+            
+            
             // true = append file
+<<<<<<< HEAD
             fw = new FileWriter(file.getAbsoluteFile(),StandardCharsets.UTF_8,false);
+=======
+            
+            fw = new FileWriter(file.getAbsoluteFile(),StandardCharsets.UTF_8, false);
+>>>>>>> origin
             bw = new BufferedWriter(fw);
             for(Word i : listWord){
                 bw.write(i.getWordTarget() + "=" + i.getWordExplain() + "\n");
@@ -100,7 +115,6 @@ public class DictionaryManagement extends Dictionary{
             
             System.out.println("Success...");
         } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             try {
                 if (bw != null)
@@ -108,7 +122,6 @@ public class DictionaryManagement extends Dictionary{
                 if (fw != null)
                     fw.close();
             } catch (IOException ex) {
-                ex.printStackTrace();
             }
         }
     }
