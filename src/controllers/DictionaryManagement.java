@@ -86,9 +86,13 @@ public class DictionaryManagement extends Dictionary{
         
         
         try {
+<<<<<<< HEAD
+            File file = new File(urlData);
+=======
             
             File file = new File(urlData);
             
+>>>>>>> origin
             // if file doesnt exists, then create it
             
             if (!file.exists()) {
@@ -97,11 +101,16 @@ public class DictionaryManagement extends Dictionary{
             
             
             // true = append file
+<<<<<<< HEAD
+            fw = new FileWriter(file.getAbsoluteFile(),StandardCharsets.UTF_8,false);
+=======
             
             fw = new FileWriter(file.getAbsoluteFile(),StandardCharsets.UTF_8, false);
+>>>>>>> origin
             bw = new BufferedWriter(fw);
             for(Word i : listWord){
                 bw.write(i.getWordTarget() + "=" + i.getWordExplain() + "\n");
+                //System.out.println("hello");
             }
             
             System.out.println("Success...");
