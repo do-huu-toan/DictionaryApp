@@ -26,8 +26,8 @@ public class DictionaryApplication extends javax.swing.JFrame {
      * Creates new form DictionaryApplication
      */
     DictionaryCommandLine DC = new DictionaryCommandLine();
-    searchPanel formSearch;
-    editPanel formEdit;
+    SearchPanel formSearch;
+    EditPanel formEdit;
     DefaultListModel dataListWord = new DefaultListModel<String>();
     DefaultTableModel table = new DefaultTableModel();
     
@@ -52,12 +52,12 @@ public class DictionaryApplication extends javax.swing.JFrame {
             table.addRow(new Object[]{i.getWordTarget(),i.getWordExplain()});
         }
         //----------------
-        formSearch = new searchPanel(DC, dataListWord);  
+        formSearch = new SearchPanel(DC, dataListWord);  
         panelShow.add(formSearch);
         formSearch.setVisible(true);
         
         
-        formEdit = new editPanel(DC, dataListWord, this, table);
+        formEdit = new EditPanel(DC, dataListWord, this, table);
         panelShow.add(formEdit);
         formEdit.setVisible(false);
         

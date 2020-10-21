@@ -17,7 +17,7 @@ import models.Word;
  *
  * @author DHT
  */
-public class editPanel extends javax.swing.JPanel {
+public class EditPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form editPanel
@@ -28,7 +28,7 @@ public class editPanel extends javax.swing.JPanel {
     DefaultTableModel table = new DefaultTableModel();
     DefaultListModel dataListWord = new DefaultListModel<String>();
     DictionaryApplication parent;
-    public editPanel(DictionaryCommandLine DC, DefaultListModel dataListWord, DictionaryApplication parent,  DefaultTableModel table) {
+    public EditPanel(DictionaryCommandLine DC, DefaultListModel dataListWord, DictionaryApplication parent,  DefaultTableModel table) {
         initComponents();
         this.parent = parent;
         this.DC = DC;
@@ -38,7 +38,7 @@ public class editPanel extends javax.swing.JPanel {
         refreshDataToTable();
     }
 
-    editPanel() {
+    EditPanel() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -171,7 +171,7 @@ public class editPanel extends javax.swing.JPanel {
     }
     private void rSButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButton1ActionPerformed
         // TODO add your handling code here:
-        inputWord input = new inputWord(parent);
+        InputWord input = new InputWord(parent);
         input.setVisible(true);
     }//GEN-LAST:event_rSButton1ActionPerformed
 
@@ -191,7 +191,7 @@ public class editPanel extends javax.swing.JPanel {
         int replaceIndex = -1;
         replaceIndex = table_edit.getSelectedRow();
         if(replaceIndex != -1){
-            replaceForm replace = new replaceForm(parent, replaceIndex);
+            ReplaceForm replace = new ReplaceForm(parent, replaceIndex);
             replace.setVisible(true);
         }
         else JOptionPane.showMessageDialog(parent, "Bạn phải chọn từ cần replace");

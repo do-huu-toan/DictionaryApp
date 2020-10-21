@@ -11,14 +11,14 @@ import models.Word;
  *
  * @author DHT
  */
-public class replaceForm extends javax.swing.JDialog {
+public class ReplaceForm extends javax.swing.JDialog {
 
     /**
-     * Creates new form replaceForm
+     * Creates new form ReplaceForm
      */
     DictionaryApplication parent;
     int replaceIndex;
-    public replaceForm(java.awt.Frame parent, int index) {    
+    public ReplaceForm(java.awt.Frame parent, int index) {    
         super(parent);
         this.replaceIndex = index;
         this.parent = (DictionaryApplication)parent;
@@ -143,20 +143,21 @@ public class replaceForm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                replaceForm dialog = new replaceForm(new javax.swing.JFrame(), 0);
+                ReplaceForm dialog = new ReplaceForm(new javax.swing.JFrame(), 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
