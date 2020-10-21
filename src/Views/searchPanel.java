@@ -25,7 +25,7 @@ import models.Word;
 public class SearchPanel extends javax.swing.JPanel{
 
     /**
-     * Creates new form searchPanel
+     * Creates new form SearchPanel
      */
     DictionaryCommandLine DC;
     

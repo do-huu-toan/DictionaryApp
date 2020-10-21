@@ -15,7 +15,7 @@ import models.Word;
 public class InputWord extends javax.swing.JDialog {
 
     /**
-     * Creates new form inputWord
+     * Creates new form InputWord
      */
     DictionaryApplication parent; 
     public InputWord(java.awt.Frame parent) {
@@ -147,6 +147,8 @@ public class InputWord extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InputWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

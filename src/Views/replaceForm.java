@@ -14,7 +14,7 @@ import models.Word;
 public class ReplaceForm extends javax.swing.JDialog {
 
     /**
-     * Creates new form replaceForm
+     * Creates new form ReplaceForm
      */
     DictionaryApplication parent;
     int replaceIndex;
@@ -151,6 +151,8 @@ public class ReplaceForm extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
