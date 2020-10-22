@@ -11,14 +11,14 @@ import models.Word;
  *
  * @author DHT
  */
-public class ReplaceForm extends javax.swing.JDialog {
+public class replaceForm extends javax.swing.JDialog {
 
     /**
-     * Creates new form ReplaceForm
+     * Creates new form replaceForm
      */
     DictionaryApplication parent;
     int replaceIndex;
-    public ReplaceForm(java.awt.Frame parent, int index) {    
+    public replaceForm(java.awt.Frame parent, int index) {    
         super(parent);
         this.replaceIndex = index;
         this.parent = (DictionaryApplication)parent;
@@ -116,7 +116,14 @@ public class ReplaceForm extends javax.swing.JDialog {
     private void btn_OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OKActionPerformed
         // TODO add your handling code here:
         Word newWord = new Word(txt_English.getText(), txt_Vietnamese.getText());
-        parent.replace(newWord, replaceIndex);
+        if(parent.load == 0)
+        {
+            parent.replace(newWord, replaceIndex);
+        }
+        else if(parent.load == 1)
+        {
+            parent.replaceToMongo(newWord, replaceIndex);
+        }
         JOptionPane.showMessageDialog(this, "Đã replace thành công");
         this.dispose();
     }//GEN-LAST:event_btn_OKActionPerformed
@@ -143,14 +150,18 @@ public class ReplaceForm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReplaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(replaceForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -159,7 +170,7 @@ public class ReplaceForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ReplaceForm dialog = new ReplaceForm(new javax.swing.JFrame(), 0);
+                replaceForm dialog = new replaceForm(new javax.swing.JFrame(), 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -12,13 +12,13 @@ import models.Word;
  *
  * @author DHT
  */
-public class InputWord extends javax.swing.JDialog {
+public class inputForm extends javax.swing.JDialog {
 
     /**
-     * Creates new form InputWord
+     * Creates new form inputForm
      */
     DictionaryApplication parent; 
-    public InputWord(java.awt.Frame parent) {
+    public inputForm(java.awt.Frame parent) {
         super(parent);
         this.parent = (DictionaryApplication) parent;
         setLocationRelativeTo(null);
@@ -113,6 +113,7 @@ public class InputWord extends javax.swing.JDialog {
         // TODO add your handling code here:
         Word newWord = new Word(txt_English.getText(), txt_Vietnamese.getText());
         parent.addNew(newWord);
+        if(parent.load == 1) parent.addToMongo(newWord);
         JOptionPane.showMessageDialog(this, "Đã add thành công");
         
     }//GEN-LAST:event_btn_OKActionPerformed
@@ -139,14 +140,18 @@ public class InputWord extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InputWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(inputForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InputWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(inputForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InputWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(inputForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InputWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(inputForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -155,7 +160,7 @@ public class InputWord extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InputWord dialog = new InputWord(new javax.swing.JFrame());
+                inputForm dialog = new inputForm(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

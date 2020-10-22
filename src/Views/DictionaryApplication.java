@@ -4,18 +4,28 @@
  * and open the template in the editor.
  */
 package Views;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
 import controllers.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 import models.Word;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.gte;
 /**
  *
  * @author DHT
@@ -26,44 +36,108 @@ public class DictionaryApplication extends javax.swing.JFrame {
      * Creates new form DictionaryApplication
      */
     DictionaryCommandLine DC = new DictionaryCommandLine();
-    SearchPanel formSearch;
+    searchPanel formSearch;
     EditPanel formEdit;
     DefaultListModel dataListWord = new DefaultListModel<String>();
     DefaultTableModel table = new DefaultTableModel();
+    int load;
+    //khởi tạo mongoClient:
+    MongoClientURI uri;
+    MongoClient mongoClient;
+    MongoDatabase database;
+    MongoCollection<Document> collection;
     
-    public DictionaryApplication() {
+    public DictionaryApplication(int load) {
         
         initComponents();
         
         //Load dữ liệu:
-        
-        try {
+        this.load = load;
+        if(this.load == 0)
+        {
+            try {
             DC.insertFromFile();
-        } catch (IOException e) {
+            } catch (IOException e) {
+            }
+           
         }
-        //DataListWord:
-        DC.getListWord().forEach(i -> {
-            dataListWord.addElement(i.getWordTarget());
-        });
-        //---------------
-        table.addColumn("English");
-        table.addColumn("Vietnamese");
-        for(Word i : DC.getListWord()){
+        else if(this.load == 1)
+        {
+            try
+            {
+                insertFromMongo();
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(rootPane, "Lỗi kết nối đến databse");
+                this.dispose();
+            }
+            
+        }
+         //DataListWord:
+            DC.getListWord().forEach(i -> {
+                dataListWord.addElement(i.getWordTarget());
+            });
+            //---------------
+            table.addColumn("English");
+            table.addColumn("Vietnamese");
+            for(Word i : DC.getListWord()){
             table.addRow(new Object[]{i.getWordTarget(),i.getWordExplain()});
         }
-        //----------------
-        formSearch = new SearchPanel(DC, dataListWord);  
-        panelShow.add(formSearch);
-        formSearch.setVisible(true);
+            //----------------
+            formSearch = new searchPanel(DC, dataListWord);  
+            panelShow.add(formSearch);
+            formSearch.setVisible(true);
         
         
-        formEdit = new EditPanel(DC, dataListWord, this, table);
-        panelShow.add(formEdit);
-        formEdit.setVisible(false);
+            formEdit = new EditPanel(DC, dataListWord, this, table);
+            panelShow.add(formEdit);
+            formEdit.setVisible(false);
         
         
     }
+    
+    void insertFromMongo()
+    {
+            uri = new MongoClientURI(
+            "mongodb+srv://dohuutoannb:toan123456@cluster0.i4joj.mongodb.net/<dbname>?retryWrites=true&w=majority");
 
+            mongoClient = new MongoClient(uri);
+            database = mongoClient.getDatabase("Dictionary");
+            System.out.println("Connected");
+            collection = database.getCollection("Dictionary");
+            MongoCursor<Document> doc = collection.find().iterator();
+            while(doc.hasNext())
+            {
+                ArrayList<Object> ob = new ArrayList(doc.next().values());
+                Word w = new Word(ob.get(1).toString(), ob.get(2).toString());
+                this.DC.add(w);
+            }
+    }
+    void addToMongo(Word w)
+    {
+        Document d = new Document();
+        d.append("target", w.getWordTarget());
+        d.append("explain", w.getWordExplain());
+        collection.insertOne(d);
+    }
+    void deleteToMongo(int index)
+    {
+        Bson filter = eq("target",DC.getListWord().get(index).getWordTarget());
+        collection.findOneAndDelete(filter);
+    }
+    void replaceToMongo(Word newWord, int index)
+    {
+        Bson filter = eq("target", DC.getListWord().get(index).getWordTarget());
+        Document d = new Document();
+        d.append("target",newWord.getWordTarget());
+        d.append("explain", newWord.getWordExplain());
+        collection.replaceOne(filter, d);
+        DC.repalace(index, newWord);
+        table.setValueAt(newWord.getWordTarget(), index,0);
+        table.setValueAt(newWord.getWordExplain(), index,1);
+        dataListWord.set(index, newWord.getWordTarget());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -314,7 +388,7 @@ public class DictionaryApplication extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DictionaryApplication().setVisible(true);
+                new DictionaryApplication(0).setVisible(true);
             }
         });
         

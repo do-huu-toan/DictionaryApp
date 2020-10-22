@@ -5,6 +5,24 @@
  */
 package run;
 import Views.DictionaryApplication;
+import Views.Start;
+
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+
+
+ 
+
 /**
  *
  * @author DHT
@@ -22,7 +40,7 @@ public class Run {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DictionaryApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        DictionaryApplication Home = new DictionaryApplication();
-        Home.setVisible(true);
+        Start start = new Start();
+        start.setVisible(true);     
     }
 }

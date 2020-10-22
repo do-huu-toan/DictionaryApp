@@ -141,6 +141,7 @@ public class EditPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     private void Delete()
     {
+           
             int removeIndex = -1;
             removeIndex = table_edit.getSelectedRow();
             if(removeIndex == -1)
@@ -150,15 +151,31 @@ public class EditPanel extends javax.swing.JPanel {
             else
             {
                 table.removeRow(removeIndex);
-                DC.remove(removeIndex);
                 dataListWord.remove(removeIndex);
                 //DC.save();
+                if(parent.load == 1)
+                {
+                    parent.deleteToMongo(removeIndex);
+                    JOptionPane.showMessageDialog(this, "Đã xóa thành công");
+                }
+                else if(parent.load == 0)
+                {
+                    DC.remove(removeIndex);
+                }
             }
             
     }
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
         // TODO add your handling code here:
-        DC.save();
+        if(parent.load == 0)
+        {
+            DC.save();
+        }
+        else if(parent.load == 1)
+        {
+            
+        }
+        
         JOptionPane.showMessageDialog(this, "Đã lưu thành công");
     }//GEN-LAST:event_btn_saveActionPerformed
     public void addNew(Word newWord){
@@ -171,7 +188,7 @@ public class EditPanel extends javax.swing.JPanel {
     }
     private void rSButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButton1ActionPerformed
         // TODO add your handling code here:
-        InputWord input = new InputWord(parent);
+        inputForm input = new inputForm(parent);
         input.setVisible(true);
     }//GEN-LAST:event_rSButton1ActionPerformed
 
@@ -191,7 +208,7 @@ public class EditPanel extends javax.swing.JPanel {
         int replaceIndex = -1;
         replaceIndex = table_edit.getSelectedRow();
         if(replaceIndex != -1){
-            ReplaceForm replace = new ReplaceForm(parent, replaceIndex);
+            replaceForm replace = new replaceForm(parent, replaceIndex);
             replace.setVisible(true);
         }
         else JOptionPane.showMessageDialog(parent, "Bạn phải chọn từ cần replace");
